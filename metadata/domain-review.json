@@ -1,0 +1,73 @@
+{
+  "repo": "orbit-parse-sql-flow",
+  "language": "Ruby",
+  "category": "Parsers",
+  "goal": "Implement a Ruby parsers project for sql state machine modeling, using transition tables and invalid-transition tests.",
+  "review_model": {
+    "terms": [
+      "token drift",
+      "grammar width",
+      "label quality",
+      "error locality"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "token drift",
+      "signal": 70,
+      "slack": 45,
+      "drag": 25,
+      "confidence": 73,
+      "score": 183,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "grammar width",
+      "signal": 72,
+      "slack": 54,
+      "drag": 15,
+      "confidence": 52,
+      "score": 205,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "label quality",
+      "signal": 70,
+      "slack": 39,
+      "drag": 22,
+      "confidence": 84,
+      "score": 197,
+      "lane": "ship"
+    },
+    {
+      "name": "recovery",
+      "focus": "error locality",
+      "signal": 67,
+      "slack": 23,
+      "drag": 26,
+      "confidence": 92,
+      "score": 171,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "token drift",
+      "signal": 54,
+      "slack": 20,
+      "drag": 15,
+      "confidence": 81,
+      "score": 164,
+      "lane": "ship"
+    }
+  ]
+}

@@ -1,68 +1,40 @@
 # orbit-parse-sql-flow
 
-`orbit-parse-sql-flow` packages a practical parsers exercise in Ruby. The emphasis is on deterministic behavior, a small public API, and examples that explain the tradeoffs.
+`orbit-parse-sql-flow` keeps a focused Ruby implementation around parsers. The project goal is to implement a Ruby parsers project for sql state machine modeling, using transition tables and invalid-transition tests.
 
-## How I Read Orbit Parse SQL Flow
+## Use Case
 
-The useful thing to inspect here is how the same score rule is represented in code, metadata, and examples. If those three pieces disagree, the audit script should make the drift visible.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
 
-## Internal Model
+## Orbit Parse SQL Flow Review Notes
 
-The interesting part is the boundary between accepted and reviewed scenarios. Extended examples sit near that boundary so future edits can show whether the model became more permissive or more cautious. The Ruby code keeps the module small and leans on Minitest for direct fixture checks.
+`stress` and `stale` are the cases worth reading first. They show the optimistic and cautious ends of the fixture.
 
-## Problem Shape
+## Highlights
 
-I use this kind of project to make a rule visible before adding more machinery around it. The important part here is not the size of the codebase. It is that the input signals, scoring rule, fixture data, and expected output can all be checked in one sitting.
+- `fixtures/domain_review.csv` adds cases for token drift and grammar width.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/orbit-parse-sql-walkthrough.md` walks through the case spread.
+- The Ruby code includes a review path for `grammar width` and `token drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Main Behaviors
+## Code Layout
 
-- Uses fixture data to keep error labels changes visible in code review.
-- Includes extended examples for grammar boundaries, including `surge` and `degraded`.
-- Documents golden examples tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
+The core code exposes a scoring path and the added review layer uses `signal`, `slack`, `drag`, and `confidence`. The domain terms are `token drift`, `grammar width`, `label quality`, and `error locality`.
 
-## Scenario Walkthrough
+The Ruby code keeps the review rule close to the tests.
 
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
-
-## Repository Map
-
-- `lib`: library code
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Run It Locally
-
-Install Ruby and run the commands from the repository root. The project does not need credentials or a hosted service.
-
-## How To Run It
+## Run The Check
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Regression Path
 
-## Validation
+The check exercises the source code and the review fixture. `stress` is the high score at 205; `stale` is the low score at 164.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Future Work
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Known Edges
-
-The examples cover useful edges, not every edge. A larger version would add malformed-input tests, richer reports, and deeper domain parsers.
-
-## Follow-Up Work
-
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add a comparison mode that shows how decisions change when one signal is adjusted.
-- Add a loader for `examples/extended_cases.csv` and promote selected cases into the language test suite.
-- Add one more parsers fixture that focuses on a malformed or borderline input.
+No external service is required. A deeper version would add more negative cases and a clearer boundary around invalid input.
