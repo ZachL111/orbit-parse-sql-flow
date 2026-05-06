@@ -1,0 +1,17 @@
+{
+  "repo": "orbit-parse-sql-flow",
+  "thresholds": {
+    "signal": 2,
+    "slack": 2,
+    "confidence": 1,
+    "drag": 4,
+    "ship": 206,
+    "watch": 107
+  },
+  "terms": [
+    "token drift",
+    "grammar width",
+    "label quality",
+    "error locality"
+  ]
+}

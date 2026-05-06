@@ -1,0 +1,28 @@
+{
+  "repo": "orbit-parse-sql-flow",
+  "language": "Ruby",
+  "category": "Parsers",
+  "goal": "Implement a Ruby parsers project for sql state machine modeling, using transition tables and invalid-transition tests.",
+  "weights": {
+    "signal": 2,
+    "slack": 2,
+    "confidence": 1,
+    "drag": 4
+  },
+  "thresholds": {
+    "ship": 206,
+    "watch": 107
+  },
+  "properties": [
+    "raising signal cannot reduce score",
+    "raising drag cannot improve score",
+    "lane labels must match configured thresholds",
+    "golden fixture ids must remain unique"
+  ],
+  "fixture_files": [
+    "fixtures/golden/scoreboard.csv",
+    "fixtures/golden/lane-matrix.csv",
+    "fixtures/fuzz/mutations.csv",
+    "fixtures/fuzz/boundary-cases.jsonl"
+  ]
+}
