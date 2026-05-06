@@ -1,0 +1,32 @@
+{
+  "index": 178,
+  "phase": 2,
+  "batch": 20,
+  "name": "orbit-parse-sql-flow",
+  "planned_name": "orbit-parse-sql-flow",
+  "language": "Ruby",
+  "category": "Parsers",
+  "goal": "Implement a Ruby parsers project for sql state machine modeling, using transition tables and invalid-transition tests.",
+  "repository_url": "https://github.com/ZachL111/orbit-parse-sql-flow",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 176,
+    "risk_penalty": 5,
+    "latency_penalty": 3,
+    "weight_bonus": 4,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
